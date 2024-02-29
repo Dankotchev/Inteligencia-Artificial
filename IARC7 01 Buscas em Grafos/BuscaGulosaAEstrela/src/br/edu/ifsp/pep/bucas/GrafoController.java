@@ -3,7 +3,6 @@ package br.edu.ifsp.pep.bucas;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,13 +33,12 @@ public class GrafoController {
                 Integer distanciaBucarest = Integer.valueOf(partes[1]);
                 Node noRaiz = obterOuCriarNode(valorRaiz);
                 distanciaParaBucarest.put(noRaiz, distanciaBucarest);
-                
 
                 for (int i = 2; i < partes.length; i++) {
                     // Coletando cidades adjacentes e distâncias entre elas e a primeira cidade da lista
                     String cidadeAdjacente = partes[i];
                     Integer distanciaAdjacente = Integer.valueOf(partes[++i]);
-                   
+
                     // Criando ou obtendo o nó da cidade adjacente e inserindo no grafo
                     Node NodeAdjacente = obterOuCriarNode(cidadeAdjacente);
                     grafo.adcionarNo(noRaiz, NodeAdjacente, distanciaAdjacente);
@@ -74,15 +72,14 @@ public class GrafoController {
             System.out.println();
         }
     }
-    
-    public Node retornarNode(String valor){
-        
+
+    public Node retornarNode(String valor) {
+
         return obterOuCriarNode(valor);
     }
 
     public Map<Node, Integer> getDistanciaParaBucarest() {
         return distanciaParaBucarest;
     }
-    
-    
+
 }

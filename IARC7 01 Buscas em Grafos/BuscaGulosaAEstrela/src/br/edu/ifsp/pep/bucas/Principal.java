@@ -18,9 +18,10 @@ public class Principal {
         GrafoController controller = new GrafoController(grafo);
         grafo = controller.lerNos(nomeArquivo);
 
-        System.out.println("Lista de Nós e seus adjacentes:");
+        // Apresentação de Adjacências
+        //System.out.println("Lista de Nós e seus adjacentes:");
         //controller.mostrarNos();
-
+        
         // Definindo de destino
         Util util = new Util();
         grafo.setCidadeDestino(controller.retornarNode("Bucarest"));
@@ -28,16 +29,15 @@ public class Principal {
         // Obtendo a "lista" de distâncias até Bucarest
         Map<Node, Integer> distanciaParaBucarest = controller.getDistanciaParaBucarest();
 
-        int opcao = 1;
-        while (opcao ==1 || opcao == 2) {
+        int opcao = util.opcaoBusca();
+        while (opcao == 1 || opcao == 2) {
             grafo.setCidadeInicial(controller.retornarNode(util.lerCidade()));
-            opcao = util.opcaoBusca();
             switch (opcao) {
                 case 1:
                     grafo.buscaGulosa(distanciaParaBucarest);
                     grafo.apresentarPercurso();
                     break;
-                    
+
                 case 2:
                     grafo.buscaAEstrela(distanciaParaBucarest);
                     grafo.apresentarPercurso();
@@ -46,6 +46,7 @@ public class Principal {
                 case 0:
                     System.out.println("Encerrando.");
             }
+            opcao = util.opcaoBusca();
         }
     }
 }

@@ -1,9 +1,8 @@
 package br.edu.ifsp.pep.bucas;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Deque;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Grafo {
@@ -66,7 +65,6 @@ public class Grafo {
             int distancia = Integer.MAX_VALUE;
 
             for (int i = 0; i < adjacentes.size(); i++) {
-                
                 // Obtendo a distância entre o nó atual e o adjacente
                 //somando com distância em linha reta até cidade de destino
                 Node adjacente = noAtual.getAdjacentes().get(i);
@@ -79,7 +77,6 @@ public class Grafo {
                     vizinhoMaisProximo = adjacente;
                 }
                 visitado.put(adjacente, true);
-
             }
             noAtual = vizinhoMaisProximo;
             this.caminhoPercorrido.add(noAtual);
@@ -88,9 +85,12 @@ public class Grafo {
 
     public void apresentarPercurso() {
         if (!this.caminhoPercorrido.isEmpty()) {
-            System.out.println("Caminho Direto da busca.");
-            for (Node node : caminhoPercorrido) {
-                System.out.print(node + "==>");
+            System.out.println("\nCaminho da busca:");
+            for (Iterator<Node> iterator = caminhoPercorrido.iterator(); iterator.hasNext();) {
+                Node next = iterator.next();
+                System.out.print(next);
+                if (iterator.hasNext())
+                    System.out.print("==>");
             }
             System.out.println("");
         }

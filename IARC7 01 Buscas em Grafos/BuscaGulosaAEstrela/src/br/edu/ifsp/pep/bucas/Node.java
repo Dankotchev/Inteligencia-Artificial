@@ -24,10 +24,6 @@ public class Node {
         }
     }
 
-    public boolean match(String valor) {
-        return this.info.equals(valor); 
-    }
-
     public ArrayList<Node> getAdjacentes() {
         return adjacentes;
     }
@@ -35,7 +31,7 @@ public class Node {
     public ArrayList<Integer> getDistancias() {
         return distancias;
     }
-    
+
     @Override
     public String toString() {
         return " {" + info + "} ";

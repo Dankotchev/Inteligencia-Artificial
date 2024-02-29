@@ -21,20 +21,31 @@ public class Principal {
         System.out.println("Lista de Nós e seus adjacentes:");
         //controller.mostrarNos();
 
-        // Definindo cidade inicial e de destino
+        // Definindo de destino
+        Util util = new Util();
         grafo.setCidadeDestino(controller.retornarNode("Bucarest"));
-        grafo.setCidadeInicial(controller.retornarNode("Arad"));
-        
+
         // Obtendo a "lista" de distâncias até Bucarest
         Map<Node, Integer> distanciaParaBucarest = controller.getDistanciaParaBucarest();
-        
-        
-        grafo.buscaGulosa(distanciaParaBucarest);
-        grafo.apresentarPercurso();
-        
-        grafo.buscaAEstrela(distanciaParaBucarest);
-        grafo.apresentarPercurso();
 
+        int opcao = 1;
+        while (opcao ==1 || opcao == 2) {
+            grafo.setCidadeInicial(controller.retornarNode(util.lerCidade()));
+            opcao = util.opcaoBusca();
+            switch (opcao) {
+                case 1:
+                    grafo.buscaGulosa(distanciaParaBucarest);
+                    grafo.apresentarPercurso();
+                    break;
+                    
+                case 2:
+                    grafo.buscaAEstrela(distanciaParaBucarest);
+                    grafo.apresentarPercurso();
+                    break;
 
+                case 0:
+                    System.out.println("Encerrando.");
+            }
+        }
     }
 }

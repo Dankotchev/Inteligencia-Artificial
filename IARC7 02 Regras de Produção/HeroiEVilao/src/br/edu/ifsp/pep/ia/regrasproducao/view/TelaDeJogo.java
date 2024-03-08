@@ -41,7 +41,6 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(this.linha, this.coluna));
 
-
         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunas; j++) {
                 JButton button = new JButton("                 ");
@@ -68,20 +67,20 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
             for (int j = 0; j < this.coluna; j++) {
                 if ((i == heroi.getEixoX() && j == heroi.getEixoY())
                         && (i == this.vilao.getEixoX() && j == this.vilao.getEixoY())) {
-                    buttons[i][j].setText(" HERÓI --> VILÃO "); // Posição do herói
+                    buttons[i][j].setText(" HERÓI --> VILÃO ");
                     buttons[i][j].setForeground(Color.BLACK);
                     buttons[i][j].setFont(new Font("Arial", Font.BOLD, 12));
                 } else if (i == heroi.getEixoX() && j == heroi.getEixoY()) {
-                    buttons[i][j].setText("      HERÓI      "); // Posição do herói
+                    buttons[i][j].setText("      HERÓI      ");
                     buttons[i][j].setForeground(Color.BLUE);
                     buttons[i][j].setFont(new Font("Arial", Font.BOLD, 12));
                 } else if (i == this.vilao.getEixoX() && j == this.vilao.getEixoY()
                         && this.vilao.getVidasRestantes() != 0) {
-                    buttons[i][j].setText("      VILÃO      "); // Posição do herói
+                    buttons[i][j].setText("      VILÃO      ");
                     buttons[i][j].setForeground(Color.RED);
                     buttons[i][j].setFont(new Font("Arial", Font.BOLD, 12));
                 } else if (i == this.bonus.getEixoX() && j == bonus.getEixoY()) {
-                    buttons[i][j].setText("      BÔNUS      "); // Posição do herói
+                    buttons[i][j].setText("      BÔNUS      ");
                     buttons[i][j].setForeground(Color.GREEN);
                     buttons[i][j].setFont(new Font("Arial", Font.BOLD, 12));
                     if (this.bonus.isUtilizado())

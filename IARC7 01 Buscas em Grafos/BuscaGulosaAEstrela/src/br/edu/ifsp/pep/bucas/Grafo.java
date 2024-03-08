@@ -58,7 +58,7 @@ public class Grafo {
         visitado.put(cidadeInicial, true);
         this.caminhoPercorrido.add(noAtual);
 
-        while (!noAtual.equals(cidadeDestino)) {
+        while (!noAtual.equals(this.cidadeDestino)) {
             // Vizinho com a menor distância para Bucarest
             ArrayList<Node> adjacentes = noAtual.getAdjacentes();
             Node vizinhoMaisProximo = null;
@@ -77,6 +77,11 @@ public class Grafo {
                     vizinhoMaisProximo = adjacente;
                 }
                 visitado.put(adjacente, true);
+
+                // Se o nó tiver um unico vizinho, chega em um caminho sem saída
+                //então remove dos visitados seu único vizinho.
+                if (adjacentes.size() != 1) 
+                    visitado.remove(adjacente);
             }
             noAtual = vizinhoMaisProximo;
             this.caminhoPercorrido.add(noAtual);
@@ -89,7 +94,7 @@ public class Grafo {
             for (Iterator<Node> iterator = caminhoPercorrido.iterator(); iterator.hasNext();) {
                 Node next = iterator.next();
                 System.out.print(next);
-                if (iterator.hasNext())
+                if (iterator.hasNext()) 
                     System.out.print("==>");
             }
             System.out.println("");

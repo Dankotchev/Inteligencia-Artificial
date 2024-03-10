@@ -65,7 +65,6 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
         pack();
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //set
         setVisible(true);
 
         this.timer = new Timer(500, this);
@@ -113,6 +112,7 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
             switch (comando) {
                 case 0:
                     this.heroi.setBonus2x(true);
+                    this.bonus.setUtilizado();
                     this.heroi.moverBaixo();
                     break;
 
@@ -138,6 +138,7 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
                     break;
                 case 6:
                     this.vilao.receberDano(true);
+                    this.heroi.setBonus2x(false);
                     break;
 
                 default:

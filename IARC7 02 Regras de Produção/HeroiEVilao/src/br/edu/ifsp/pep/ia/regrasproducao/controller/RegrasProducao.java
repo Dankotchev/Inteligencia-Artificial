@@ -33,7 +33,21 @@ public class RegrasProducao {
 
         if (this.heroi.comparePosicao(this.bonus))
             retorno = 0;
-        
+
+        if (this.heroi.comparePosicao(this.bonus) && this.bonus.isUtilizado()) {
+            if (this.heroi.getEixoX() < this.vilao.getEixoX())
+                retorno = 1;
+
+            if (this.heroi.getEixoX() > this.vilao.getEixoX())
+                retorno = 2;
+
+            if (this.heroi.getEixoY() < this.vilao.getEixoY())
+                retorno = 3;
+
+            if (this.heroi.getEixoY() > this.vilao.getEixoY())
+                retorno = 4;
+        }
+
         return retorno;
     }
 

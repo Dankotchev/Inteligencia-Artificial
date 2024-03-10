@@ -19,9 +19,11 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
     private JButton[][] buttons;
     private int linha, coluna;
 
-    private JPanel infoPanel;
-    private JLabel vidaVilaoLabel;
-    private JLabel jogadasHeroiLabel;
+    private JPanel infoPanel = new JPanel();
+    private JPanel jogoPanel;
+    private JLabel vidaVilaoLabel = new JLabel();
+    private JLabel jogadasHeroiLabel = new JLabel();
+    private int jogadasHeroi = 0;
 
     private Timer timer;
 
@@ -39,16 +41,24 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
 
         setTitle("A Grande Aventura Heroica do Herói");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(this.linha, this.coluna));
 
+        this.jogoPanel = new JPanel(new GridLayout(this.linha, this.coluna));
+        this.vidaVilaoLabel.setText("Vidas restantes do Vilão: " + this.vilao.getVidasRestantes());
+        this.jogadasHeroiLabel.setText("Jogadas do Herói: " + this.jogadasHeroi);
+        this.infoPanel.add(this.vidaVilaoLabel);
+        this.infoPanel.add(this.jogadasHeroiLabel);
+        
         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunas; j++) {
                 JButton button = new JButton("                 ");
                 button.setEnabled(false);
                 buttons[i][j] = button;
-                add(button);
+                this.jogoPanel.add(button);
             }
         }
+        
+        add(this.infoPanel, BorderLayout.NORTH);
+        add(this.jogoPanel, BorderLayout.CENTER);
 
         atualizarPosicoes();
 
@@ -95,6 +105,7 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
     public void regrasDeProducao() {
         int comando;
         this.regraProd = new RegrasProducao(this.heroi, this.vilao, this.bonus);
+        this.jogadasHeroi++;
 
         if (this.vilao.getVidasRestantes() != 0) {
 
@@ -123,6 +134,7 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
 
                 case 5:
                     this.vilao.receberDano(false);
+                    
                     break;
                 case 6:
                     this.vilao.receberDano(true);
@@ -131,6 +143,8 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
                 default:
                     System.out.println("Comando inválido");
             }
+            this.vidaVilaoLabel.setText("Vidas restantes do Vilão: " + this.vilao.getVidasRestantes());
+            this.jogadasHeroiLabel.setText("Jogadas do Herói: " + this.jogadasHeroi);
             this.atualizarPosicoes();
         }
     }

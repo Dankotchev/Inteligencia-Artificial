@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
 
@@ -29,6 +30,8 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
 
     /**
      * Creates new form TelaDeJogo
+     * @param linhas  quantidade de linhas presentes no cenário do jogo
+     * @param colunas quantidade de colunas presentes no cenário do jogo
      */
     public TelaDeJogo(int linhas, int colunas) {
         this.heroi = new Heroi(linhas, colunas);
@@ -39,15 +42,20 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
         this.linha = linhas;
         this.coluna = colunas;
 
+        // Configurando o comportamento do JFrame
         setTitle("A Grande Aventura Heroica do Herói");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.jogoPanel = new JPanel(new GridLayout(this.linha, this.coluna));
-        this.vidaVilaoLabel.setText("Vidas restantes do Vilão: " + this.vilao.getVidasRestantes());
-        this.jogadasHeroiLabel.setText("Jogadas do Herói: " + this.jogadasHeroi);
+        // Configurando o painel superior
+        this.infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        this.configurarLabel(this.vidaVilaoLabel, "Vidas restante do Vilão: ", this.vilao.getVidasRestantes(), Color.red);
+        this.configurarLabel(this.jogadasHeroiLabel, "Jogadas do Herói: ", this.jogadasHeroi, Color.blue);
         this.infoPanel.add(this.vidaVilaoLabel);
         this.infoPanel.add(this.jogadasHeroiLabel);
-        
+
+        // Configurando o painel inferior, o do jogo
+        this.jogoPanel = new JPanel(new GridLayout(this.linha, this.coluna));
+
         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunas; j++) {
                 JButton button = new JButton("                 ");
@@ -56,7 +64,7 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
                 this.jogoPanel.add(button);
             }
         }
-        
+
         add(this.infoPanel, BorderLayout.NORTH);
         add(this.jogoPanel, BorderLayout.CENTER);
 
@@ -67,10 +75,14 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
 
+        // Timer de 0,5 segundos, para gerar as ações automáticas
         this.timer = new Timer(500, this);
         this.timer.start();
     }
 
+    /**
+     *  Atualiza a posição de cada personagem a cada iteração
+     */
     private void atualizarPosicoes() {
         for (int i = 0; i < this.linha; i++) {
             for (int j = 0; j < this.coluna; j++) {
@@ -113,7 +125,6 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
                 case 0:
                     this.heroi.setBonus2x(true);
                     this.bonus.setUtilizado();
-                    this.heroi.moverBaixo();
                     break;
 
                 case 1:
@@ -134,7 +145,7 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
 
                 case 5:
                     this.vilao.receberDano(false);
-                    
+
                     break;
                 case 6:
                     this.vilao.receberDano(true);
@@ -148,6 +159,22 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
             this.jogadasHeroiLabel.setText("Jogadas do Herói: " + this.jogadasHeroi);
             this.atualizarPosicoes();
         }
+    }
+
+    /**
+     * Responsável por editar um JLabel, seguindo uma configuração padrão
+     * @param label o JLabel a ser configurado
+     * @param texto o texto a ser apresentado
+     * @param valor o valor numérico a ser apresentado após o texto
+     * @param cor a cor do texto apresentado
+     */
+    private void configurarLabel(JLabel label, String texto, int valor, Color cor) {
+        Border bordasLabel = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        label.setText(texto + valor);
+        label.setForeground(cor);
+        label.setFont(new Font("Garamond", Font.BOLD, 24));
+        label.setBorder(bordasLabel);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
     @Override

@@ -118,15 +118,11 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
         this.regraProd = new RegrasProducao(this.heroi, this.vilao, this.bonus);
         this.jogadasHeroi++;
 
-        if (this.vilao.getVidasRestantes() != 0) {
+        if (this.vilao.getVidasRestantes() > 0) {
+            System.out.println("");    
 
             comando = this.regraProd.obterProximaJogada();
             switch (comando) {
-                case 0:
-                    this.heroi.setBonus2x(true);
-                    this.bonus.setUtilizado();
-                    break;
-
                 case 1:
                     this.heroi.moverBaixo();
                     break;
@@ -145,13 +141,17 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
 
                 case 5:
                     this.vilao.receberDano(false);
-
                     break;
                 case 6:
                     this.vilao.receberDano(true);
                     this.heroi.setBonus2x(false);
                     break;
 
+                case 7:
+                    this.heroi.setBonus2x(true);
+                    this.bonus.setUtilizado();
+                    break;
+                    
                 default:
                     System.out.println("Comando inválido");
             }
@@ -247,7 +247,7 @@ public class TelaDeJogo extends javax.swing.JFrame implements ActionListener {
 //                new TelaDeJogo().setVisible(true);
 
                 SwingUtilities.invokeLater(() -> {
-                    new TelaDeJogo(10, 10);
+                    new TelaDeJogo(10,10);
 
                 });
 

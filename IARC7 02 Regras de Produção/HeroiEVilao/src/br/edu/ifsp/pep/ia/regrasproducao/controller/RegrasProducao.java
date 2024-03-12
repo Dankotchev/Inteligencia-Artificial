@@ -10,6 +10,11 @@ public class RegrasProducao {
     private Vilao vilao;
     private Bonus bonus;
 
+    /**
+     * Valores menores de retorno são de menores prioridades
+     *
+     * @return regra de produção a ser executada
+     */
     public int obterProximaJogada() {
         int retorno = 999;
 
@@ -31,22 +36,8 @@ public class RegrasProducao {
         if (this.heroi.isBonus2x() && this.heroi.comparePosicao(this.vilao))
             retorno = 6;
 
-        if (this.heroi.comparePosicao(this.bonus))
-            retorno = 0;
-
-        if (this.heroi.comparePosicao(this.bonus) && this.bonus.isUtilizado()) {
-            if (this.heroi.getEixoX() < this.vilao.getEixoX())
-                retorno = 1;
-
-            if (this.heroi.getEixoX() > this.vilao.getEixoX())
-                retorno = 2;
-
-            if (this.heroi.getEixoY() < this.vilao.getEixoY())
-                retorno = 3;
-
-            if (this.heroi.getEixoY() > this.vilao.getEixoY())
-                retorno = 4;
-        }
+        if (this.heroi.comparePosicao(this.bonus) && !this.bonus.isUtilizado())
+            retorno = 7;
 
         return retorno;
     }

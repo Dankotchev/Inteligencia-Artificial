@@ -16,7 +16,9 @@ Repositório contendo resoluções de atividades, listas de exercícios e provas
     * Busca em Profundidade
     * Busca Gulosa
     * Busca A*
-* 
+* Redes Semânticas
+* Ontologias
+* Regras de Produção
 
 A disciplina ministrada pelo professor Danilo Codeco Carvalho.
 
